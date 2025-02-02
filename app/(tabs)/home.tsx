@@ -56,7 +56,7 @@ export default function Home() {
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.header}>
         <Text style={styles.headerText}>
-          Welcome, <Text style={{ fontWeight: "bold" }}>{user?.email}</Text>!
+          Welcome, <Text style={{ fontWeight: "bold" }}>{user?.name ?? user?.email}</Text>!
         </Text>
       </View>
       <View style={styles.filtersContainer}>

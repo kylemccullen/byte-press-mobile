@@ -24,6 +24,7 @@ interface FormErrors {
 }
 
 export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -85,6 +86,11 @@ export default function Register() {
           transition={1000}
         />
         <View style={styles.container}>
+          <TextInput 
+            label="Name"
+            keyboardType="default"
+            value={name}
+            onChangeText={setName} />
           <TextInput
             label="Email"
             keyboardType="email-address"
