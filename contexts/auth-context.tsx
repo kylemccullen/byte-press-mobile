@@ -17,6 +17,7 @@ interface AuthContextType {
   user?: User;
   tasks?: Task[];
   setTasks?: Dispatch<SetStateAction<Task[]>>;
+  setUser?: Dispatch<SetStateAction<User | undefined>>;
 }
 
 export const AuthContext = createContext<AuthContextType>({});
@@ -34,7 +35,9 @@ export const AuthProvider = ({ children }: any) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken, user, tasks, setTasks }}>
+    <AuthContext.Provider
+      value={{ token, setToken, user, tasks, setTasks, setUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

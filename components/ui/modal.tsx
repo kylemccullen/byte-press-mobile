@@ -22,7 +22,7 @@ interface PropType {
 export default function CutomModal(props: PropType) {
   return (
     <>
-      <Button text="Add Task" onPress={() => props.setVisible(true)} />
+      <Button text={props.buttonText} onPress={() => props.setVisible(true)} />
       <Modal visible={props.visible}>
         <SafeAreaView style={styles.container}>
           <View style={styles.header}>
