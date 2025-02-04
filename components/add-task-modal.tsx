@@ -4,8 +4,8 @@ import TextInput from "./ui/text-input";
 import Button from "./ui/button";
 import { useContext, useState } from "react";
 import { addTask } from "@/util/task";
-import { AuthContext } from "@/contexts/auth-context";
 import { Task } from "@/models/task";
+import { TaskContext } from "@/contexts/task-context";
 
 interface FormErrors {
   name?: string;
@@ -13,7 +13,7 @@ interface FormErrors {
 
 export default function AddTaskModal() {
   const [name, setName] = useState("");
-  const { setTasks } = useContext(AuthContext);
+  const { setTasks } = useContext(TaskContext);
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);

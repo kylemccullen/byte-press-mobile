@@ -1,17 +1,17 @@
 import Button from "@/components/ui/button";
 import UpdateNameModal from "@/components/update-name-modal";
 import { Colors } from "@/constants/colors";
-import { AuthContext } from "@/contexts/auth-context";
+import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { router } from "expo-router";
 import { useContext } from "react";
 import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 
 export default function Settings() {
-  const { setToken, user, setUser } = useContext(AuthContext);
+  const { authState, authDispatch } = useContext(AuthContext);
+  const { user } = authState!;
 
   const logout = () => {
-    setToken?.(undefined);
-    setUser?.(undefined);
+    authDispatch?.({ type: AuthActionType.LOGOUT });
     router.replace("/");
   };
 

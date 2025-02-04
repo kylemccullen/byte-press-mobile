@@ -15,9 +15,9 @@ import Link from "@/components/ui/link";
 import { Colors } from "@/constants/colors";
 import { useContext, useState } from "react";
 import { login } from "@/util/user";
+import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { router } from "expo-router";
 import { AuthToken } from "@/models/auth-token";
-import { AuthContext } from "@/contexts/auth-context";
 
 interface FormErrors {
   email?: string;
@@ -30,7 +30,7 @@ export default function Login() {
   const [password, setPassword] = useState("Password@1");
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
-  const { setToken } = useContext(AuthContext);
+  const { authDispatch } = useContext(AuthContext);
 
   const validateForm = () => {
     const formErrors: FormErrors = {};
@@ -53,7 +53,7 @@ export default function Login() {
 
     login(email, password)
       .then((authToken: AuthToken) => {
-        setToken?.(authToken);
+        authDispatch?.({ type: AuthActionType.LOGIN, payload: { authToken } })
         router.push("/home");
       })
       .catch((error) => {

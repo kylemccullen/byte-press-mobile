@@ -17,9 +17,12 @@ import { getTasks, updateTask } from "@/util/task";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { AuthContext } from "@/contexts/auth-context";
 import AddTaskModal from "@/components/add-task-modal";
+import { TaskContext } from "@/contexts/task-context";
 
 export default function Home() {
-  const { user, tasks, setTasks } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
+  const { user } = authState!;
+  const { tasks, setTasks } = useContext(TaskContext);
   const [showCompleted, setShowCompleted] = useState(false);
   const [filteredTasks, setFilterdTasks] = useState<Task[]>([]);
 
@@ -56,7 +59,11 @@ export default function Home() {
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.header}>
         <Text style={styles.headerText}>
-          Welcome, <Text style={{ fontWeight: "bold" }}>{user?.name ?? user?.email}</Text>!
+          Welcome,{" "}
+          <Text style={{ fontWeight: "bold" }}>
+            {user?.name ?? user?.email}
+          </Text>
+          !
         </Text>
       </View>
       <View style={styles.filtersContainer}>

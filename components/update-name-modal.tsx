@@ -3,11 +3,12 @@ import Modal from "./ui/modal";
 import TextInput from "./ui/text-input";
 import Button from "./ui/button";
 import { useContext, useState } from "react";
-import { AuthContext } from "@/contexts/auth-context";
+import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { updateUser } from "@/util/user";
 
 export default function UpdateNameModal() {
-  const { user, setUser } = useContext(AuthContext);
+  const { authState, authDispatch } = useContext(AuthContext);
+  const { user } = authState!;
   const [name, setName] = useState(user?.name ?? "");
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -17,8 +18,7 @@ export default function UpdateNameModal() {
 
     updateUser(user?.id!, { name })
       .then((updateUser) => {
-          console.log(updateUser);
-        setUser?.(updateUser);
+        authDispatch?.({ type: AuthActionType.SET_USER, payload: { user: updateUser }});
         setModalVisible(false);
       })
       .catch(() => Alert.alert("Oops", "An error occured."))

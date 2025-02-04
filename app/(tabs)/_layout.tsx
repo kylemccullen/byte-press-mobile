@@ -6,9 +6,9 @@ import { AuthContext } from "@/contexts/auth-context";
 import { Colors } from "@/constants/colors";
 
 export default function TabLayout() {
-  const { token } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
 
-  if (!token) router.replace("/");
+  if (!authState?.token) router.replace("/");
 
   return (
     <Tabs
