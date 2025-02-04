@@ -7,10 +7,11 @@ import { useContext } from "react";
 import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 
 export default function Settings() {
-  const { setToken, user } = useContext(AuthContext);
+  const { setToken, user, setUser } = useContext(AuthContext);
 
   const logout = () => {
     setToken?.(undefined);
+    setUser?.(undefined);
     router.replace("/");
   };
 

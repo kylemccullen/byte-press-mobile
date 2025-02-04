@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: any) => {
     axios.defaults.headers.common["Authorization"] =
       `Bearer ${token?.accessToken}`;
 
-    getUser().then(setUser);
+    if (!user) getUser().then(setUser);
   }, [token]);
 
   return (
