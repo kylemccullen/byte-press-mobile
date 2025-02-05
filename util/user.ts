@@ -39,3 +39,13 @@ export const updateUser = async (
 
   return response.data as User;
 };
+
+export const refreshToken = async (
+  refreshToken: string,
+): Promise<AuthToken> => {
+  const response = await axios.post(`${environment.apiUrl}/refresh`, {
+    refreshToken,
+  });
+
+  return response.data as AuthToken;
+};

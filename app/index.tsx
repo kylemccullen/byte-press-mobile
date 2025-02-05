@@ -3,13 +3,37 @@ import { Image } from "expo-image";
 import { Colors } from "@/constants/colors";
 import Button from "@/components/ui/button";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getCompletedTaskCount } from "@/util/task";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { refreshToken } from "@/util/user";
+import { AuthActionType, AuthContext } from "@/contexts/auth-context";
+import { AuthToken } from "@/models/auth-token";
 
 export default function Welcome() {
+  const { authDispatch } = useContext(AuthContext);
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
+    (async () => {
+      try {
+        var value = await AsyncStorage.getItem("token");
+        if (value) {
+          refreshToken((JSON.parse(value) as AuthToken).refreshToken)
+            .then((authToken: AuthToken) => {
+              authDispatch?.({
+                type: AuthActionType.LOGIN,
+                payload: { authToken },
+              });
+              router.replace("/home");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } catch (error) {}
+    })();
+
     getCompletedTaskCount()
       .then(setCount)
       .catch((error) => console.log(JSON.stringify(error, null, 2)));

@@ -3,6 +3,7 @@ import { User } from "@/models/user";
 import { getUser } from "@/util/user";
 import axios from "axios";
 import { createContext, Dispatch, useEffect, useReducer } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthState {
   user?: User | null;
@@ -24,6 +25,7 @@ interface AuthAction {
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case AuthActionType.LOGIN:
+      AsyncStorage.setItem("token", JSON.stringify(action.payload.authToken));
       return {
         ...state,
         token: action.payload.authToken,
@@ -39,6 +41,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
         user: action.payload.user,
       };
     case AuthActionType.LOGOUT:
+      AsyncStorage.setItem("token", JSON.stringify(null));
       return {
         ...state,
         token: null,
