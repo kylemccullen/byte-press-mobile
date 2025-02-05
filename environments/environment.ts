@@ -1,5 +1,6 @@
-import { FORWARD_API } from "@/secrets";
+import { FORWARD_API, debugValues } from "@/secrets";
 
 export const environment = {
-    apiUrl: FORWARD_API
-} 
+  apiUrl: FORWARD_API,
+  debugValues,
+};

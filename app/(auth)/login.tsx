@@ -18,6 +18,7 @@ import { login } from "@/util/user";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { router } from "expo-router";
 import { AuthToken } from "@/models/auth-token";
+import { environment } from "@/environments/environment";
 
 interface FormErrors {
   email?: string;
@@ -26,8 +27,10 @@ interface FormErrors {
 }
 
 export default function Login() {
-  const [email, setEmail] = useState("kyle@email.com");
-  const [password, setPassword] = useState("Password@1");
+  const [email, setEmail] = useState(environment.debugValues.email || "");
+  const [password, setPassword] = useState(
+    environment.debugValues.password || "",
+  );
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const { authDispatch } = useContext(AuthContext);
@@ -53,7 +56,7 @@ export default function Login() {
 
     login(email, password)
       .then((authToken: AuthToken) => {
-        authDispatch?.({ type: AuthActionType.LOGIN, payload: { authToken } })
+        authDispatch?.({ type: AuthActionType.LOGIN, payload: { authToken } });
         router.push("/home");
       })
       .catch((error) => {
