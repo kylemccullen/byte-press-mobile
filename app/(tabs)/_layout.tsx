@@ -4,17 +4,23 @@ import { router, Tabs } from "expo-router";
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/auth-context";
 import { Colors } from "@/constants/colors";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export default function TabLayout() {
   const { authState } = useContext(AuthContext);
 
   if (!authState?.token) router.replace("/");
 
+  const backgroundColor = useThemeColor("cardBackground");
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.primary,
+        tabBarStyle: {
+          backgroundColor,
+        },
       }}
     >
       <Tabs.Screen

@@ -1,4 +1,4 @@
-import { Colors } from "@/constants/colors";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import {
   StyleSheet,
   TextInput,
@@ -13,11 +13,18 @@ interface Props extends TextInputProps {
 }
 
 export default function CustomTextInput(props: Props) {
+  const lightText = useThemeColor("lightText");
+  const error = useThemeColor("error");
+  const color = useThemeColor("text");
+
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{props.label}</Text>
-      <TextInput style={styles.input} {...props} />
-      <Text style={styles.error}>{props.error}</Text>
+      <Text style={{ color: lightText }}>{props.label}</Text>
+      <TextInput
+        style={{ ...styles.input, color, borderColor: lightText }}
+        {...props}
+      />
+      <Text style={{ ...styles.error, color: error }}>{props.error}</Text>
     </View>
   );
 }
@@ -26,16 +33,11 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 8,
   },
-  label: {
-    color: Colors.lightText,
-  },
   input: {
-    borderColor: Colors.lightText,
     borderBottomWidth: 1,
     paddingVertical: 8,
   },
   error: {
     paddingTop: 4,
-    color: Colors.red,
   },
 });

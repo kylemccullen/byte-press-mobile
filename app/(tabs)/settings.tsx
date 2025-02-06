@@ -1,10 +1,12 @@
 import Button from "@/components/ui/button";
+import { ThemedText } from "@/components/ui/themed-text";
+import Wrapper from "@/components/ui/wrapper";
 import UpdateNameModal from "@/components/update-name-modal";
-import { Colors } from "@/constants/colors";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 import { useContext } from "react";
-import { SafeAreaView, StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 export default function Settings() {
   const { authState, authDispatch } = useContext(AuthContext);
@@ -15,19 +17,19 @@ export default function Settings() {
     router.replace("/");
   };
 
+  const text = useThemeColor("text");
+  const lightText = useThemeColor("lightText");
+
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <Wrapper>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Settings</Text>
+        <ThemedText style={styles.headerText}>Settings</ThemedText>
       </View>
       <View style={styles.field}>
         <View style={styles.value}>
-          <Text style={styles.labelText}>Name:</Text>
+          <ThemedText style={styles.labelText}>Name:</ThemedText>
           <Text
-            style={[
-              styles.valueText,
-              { color: user?.name ? "default" : Colors.lightText },
-            ]}
+            style={[styles.valueText, { color: user?.name ? text : lightText }]}
           >
             {user?.name ?? "Not Set"}
           </Text>
@@ -37,15 +39,11 @@ export default function Settings() {
       <View style={styles.logout}>
         <Button text="Logout" onPress={logout} />
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    margin: 10,
-  },
   header: {
     marginBottom: 15,
   },

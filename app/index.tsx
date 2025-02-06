@@ -9,6 +9,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { refreshToken } from "@/util/user";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { AuthToken } from "@/models/auth-token";
+import { ThemedView } from "@/components/ui/themed-view";
+import { ThemedText } from "@/components/ui/themed-text";
 
 export default function Welcome() {
   const { authDispatch } = useContext(AuthContext);
@@ -40,16 +42,18 @@ export default function Welcome() {
   }, []);
 
   return (
-    <View style={styles.wrapper}>
+    <ThemedView style={styles.wrapper}>
       <Image
         source={require("../assets/images/logo.png")}
         style={styles.logo}
         contentFit="contain"
         transition={1000}
       />
-      <Text style={styles.welcome}>Welcome to a simple Todo App!</Text>
-      <Text style={styles.count}>Over {count} tasks completed</Text>
-      <View style={styles.container}>
+      <ThemedText style={styles.welcome}>
+        Welcome to a simple Todo App!
+      </ThemedText>
+      <ThemedText style={styles.count}>Over {count} tasks completed</ThemedText>
+      <ThemedView style={styles.container}>
         <Button
           style={styles.button}
           text="Login"
@@ -60,15 +64,14 @@ export default function Welcome() {
           text="Register"
           onPress={() => router.push("/(auth)/register")}
         />
-      </View>
-    </View>
+      </ThemedView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.appBackground,
     alignItems: "center",
     justifyContent: "center",
   },

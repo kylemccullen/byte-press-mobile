@@ -18,6 +18,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { AuthContext } from "@/contexts/auth-context";
 import AddTaskModal from "@/components/add-task-modal";
 import { TaskContext } from "@/contexts/task-context";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedText } from "@/components/ui/themed-text";
+import Wrapper from "@/components/ui/wrapper";
 
 export default function Home() {
   const { authState } = useContext(AuthContext);
@@ -55,19 +58,21 @@ export default function Home() {
       .catch(() => Alert.alert("Oops", "An error occured."));
   };
 
+  const lightText = useThemeColor("lightText");
+
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <Wrapper>
       <View style={styles.header}>
-        <Text style={styles.headerText}>
-          Welcome,{" "}
-          <Text style={{ fontWeight: "bold" }}>
+        <ThemedText style={styles.headerText}>
+          {"Welcome, "}
+          <ThemedText style={{ fontWeight: "bold" }}>
             {user?.name ?? user?.email}
-          </Text>
+          </ThemedText>
           !
-        </Text>
+        </ThemedText>
       </View>
       <View style={styles.filtersContainer}>
-        <Text style={styles.filterText}>
+        <Text style={{ color: lightText }}>
           Showing {filteredTasks.length} of {tasks?.length} tasks
         </Text>
         <Button
@@ -85,26 +90,21 @@ export default function Home() {
                 color={Colors.primary}
                 onValueChange={() => toggleTask(task)}
               />
-              <Text>{task.name}</Text>
+              <ThemedText>{task.name}</ThemedText>
             </Card>
           ))}
         </View>
         <TouchableOpacity onPress={loadTasks} style={styles.refreshContainer}>
-          <FontAwesome name="refresh" color={Colors.lightText} />
-          <Text style={styles.refreshText}>Refresh</Text>
+          <FontAwesome name="refresh" color={lightText} />
+          <Text style={{ color: lightText }}>Refresh</Text>
         </TouchableOpacity>
       </ScrollView>
       <AddTaskModal />
-    </SafeAreaView>
+    </Wrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: Colors.appBackground,
-    padding: 20,
-  },
   header: {
     paddingVertical: 10,
   },
@@ -132,17 +132,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 20,
   },
-  filterText: {
-    color: Colors.lightText,
-  },
   refreshContainer: {
     marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-  },
-  refreshText: {
-    color: Colors.lightText,
   },
 });

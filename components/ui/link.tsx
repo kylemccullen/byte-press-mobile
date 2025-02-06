@@ -1,6 +1,6 @@
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Href, Link } from "expo-router";
-import { Colors } from "@/constants/colors";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 interface Props {
   href: Href;
@@ -8,13 +8,22 @@ interface Props {
 }
 
 export default function CustomLink(props: Props) {
+  const linkColor = useThemeColor("linkColor");
+
   return (
     <Link href={props.href} asChild replace>
       <TouchableOpacity>
-        <Text style={{ color: Colors.link, textDecorationLine: "underline" }}>
+        <Text style={{ ...styles.linkText, color: linkColor }}>
           {props.text}
         </Text>
       </TouchableOpacity>
     </Link>
   );
 }
+
+const styles = StyleSheet.create({
+  linkText: {
+    textDecorationLine: "underline",
+    padding: 3,
+  },
+});

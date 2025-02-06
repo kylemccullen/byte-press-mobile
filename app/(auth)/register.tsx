@@ -1,5 +1,4 @@
 import {
-  Text,
   View,
   StyleSheet,
   KeyboardAvoidingView,
@@ -12,10 +11,12 @@ import { Image } from "expo-image";
 import TextInput from "@/components/ui/text-input";
 import Button from "@/components/ui/button";
 import Link from "@/components/ui/link";
-import { Colors } from "@/constants/colors";
 import { useState } from "react";
 import { register } from "@/util/user";
 import { passwordMinimumLength } from "@/constants";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedText } from "@/components/ui/themed-text";
+import Card from "@/components/ui/card";
 
 interface FormErrors {
   email?: string;
@@ -73,10 +74,12 @@ export default function Register() {
       .finally(() => setLoading(false));
   };
 
+  const backgroundColor = useThemeColor("background");
+
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        style={styles.wrapper}
+        style={{ ...styles.wrapper, backgroundColor }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Image
@@ -85,12 +88,13 @@ export default function Register() {
           contentFit="contain"
           transition={1000}
         />
-        <View style={styles.container}>
-          <TextInput 
+        <Card style={styles.container}>
+          <TextInput
             label="Name"
             keyboardType="default"
             value={name}
-            onChangeText={setName} />
+            onChangeText={setName}
+          />
           <TextInput
             label="Email"
             keyboardType="email-address"
@@ -113,9 +117,9 @@ export default function Register() {
             error={errors.confirmPassword}
           />
           <Button text="Sign Up" onPress={submitForm} loading={loading} />
-        </View>
+        </Card>
         <View style={{ alignItems: "center" }}>
-          <Text>Already have an account?</Text>
+          <ThemedText>Already have an account?</ThemedText>
           <Link href="/(auth)/login" text="Login" />
         </View>
       </KeyboardAvoidingView>
@@ -125,7 +129,6 @@ export default function Register() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.appBackground,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -135,7 +138,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "80%",
-    backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
     marginBottom: 15,

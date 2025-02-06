@@ -19,6 +19,10 @@ import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { router } from "expo-router";
 import { AuthToken } from "@/models/auth-token";
 import { environment } from "@/environments/environment";
+import { ThemedView } from "@/components/ui/themed-view";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedText } from "@/components/ui/themed-text";
+import Card from "@/components/ui/card";
 
 interface FormErrors {
   email?: string;
@@ -70,10 +74,12 @@ export default function Login() {
       .finally(() => setLoading(false));
   };
 
+  const backgroundColor = useThemeColor("background");
+
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        style={styles.wrapper}
+        style={{ ...styles.wrapper, backgroundColor }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Image
@@ -82,7 +88,7 @@ export default function Login() {
           contentFit="contain"
           transition={1000}
         />
-        <View style={styles.container}>
+        <Card style={styles.container}>
           <TextInput
             label="Email"
             keyboardType="email-address"
@@ -98,19 +104,19 @@ export default function Login() {
             error={errors.password}
           />
           <Button text="Login" onPress={submitForm} loading={loading} />
-        </View>
+        </Card>
         <View style={{ alignItems: "center" }}>
-          <Text>Don't have an account?</Text>
+          <ThemedText>Don't have an account?</ThemedText>
           <Link href="/(auth)/register" text="Register" />
         </View>
       </KeyboardAvoidingView>
     </TouchableNativeFeedback>
   );
 }
+
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.appBackground,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -120,7 +126,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "80%",
-    backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
     marginBottom: 15,
