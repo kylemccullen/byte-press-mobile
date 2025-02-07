@@ -1,6 +1,6 @@
 import axios from "axios";
 import { environment } from "@/environments/environment";
-import { UpdateUser, User } from "@/models/user";
+import { UpdateUser, User, UserOverview } from "@/models/user";
 import { AuthToken } from "@/models/auth-token";
 
 export const register = (email: string, password: string): Promise<void> => {
@@ -48,4 +48,10 @@ export const refreshToken = async (
   });
 
   return response.data as AuthToken;
+};
+
+export const getUsersOverview = async (): Promise<UserOverview[]> => {
+  const response = await axios.get(`${environment.apiUrl}/api/users/overview`);
+
+  return response.data as UserOverview[];
 };
