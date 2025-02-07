@@ -6,15 +6,13 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Alert,
+  RefreshControl,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "@/constants/colors";
 import { Checkbox } from "expo-checkbox";
 import Button from "@/components/ui/button";
 import { getTasks, updateTask } from "@/util/task";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { AuthContext } from "@/contexts/auth-context";
 import AddTaskModal from "@/components/add-task-modal";
 import { TaskContext } from "@/contexts/task-context";
@@ -28,9 +26,13 @@ export default function Home() {
   const { tasks, setTasks } = useContext(TaskContext);
   const [showCompleted, setShowCompleted] = useState(false);
   const [filteredTasks, setFilterdTasks] = useState<Task[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   var loadTasks = () => {
-    getTasks?.().then(setTasks);
+    getTasks?.().then((tasks: Task[]) => {
+      setTasks?.(tasks);
+      setRefreshing(false);
+    });
   };
 
   useEffect(() => {
@@ -81,7 +83,18 @@ export default function Home() {
           onPress={() => setShowCompleted(!showCompleted)}
         />
       </View>
-      <ScrollView style={styles.scrollView}>
+
+      {filteredTasks.length === 0 && (
+        <Text style={{ color: lightText, textAlign: "center" }}>
+          No tasks to show.
+        </Text>
+      )}
+      <ScrollView
+        style={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={loadTasks} />
+        }
+      >
         <View style={styles.container}>
           {filteredTasks?.map((task: Task) => (
             <Card key={task.id} style={styles.task}>
@@ -94,10 +107,6 @@ export default function Home() {
             </Card>
           ))}
         </View>
-        <TouchableOpacity onPress={loadTasks} style={styles.refreshContainer}>
-          <FontAwesome name="refresh" color={lightText} />
-          <Text style={{ color: lightText }}>Refresh</Text>
-        </TouchableOpacity>
       </ScrollView>
       <AddTaskModal />
     </Wrapper>
@@ -131,12 +140,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingBottom: 20,
-  },
-  refreshContainer: {
-    marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
   },
 });

@@ -7,15 +7,29 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import { UserOverview } from "@/models/user";
 import { getUsersOverview } from "@/util/user";
 import React, { useEffect, useState } from "react";
-import { Text, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  View,
+  RefreshControl,
+} from "react-native";
 
 export default function Admin() {
   const [users, setUsers] = useState<UserOverview[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<UserOverview[]>([]);
   const [searchText, setSearchText] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const loadData = () => {
+    getUsersOverview().then((users: UserOverview[]) => {
+      setUsers(users);
+      setRefreshing(false);
+    });
+  };
 
   useEffect(() => {
-    getUsersOverview().then(setUsers);
+    loadData();
   }, []);
 
   useEffect(() => {
@@ -39,7 +53,12 @@ export default function Admin() {
         value={searchText}
         onChangeText={setSearchText}
       />
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+        }
+      >
         <View style={styles.container}>
           {filteredUsers.map((user: UserOverview) => (
             <Card key={user.email} style={{ gap: 15 }}>
