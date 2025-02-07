@@ -19,3 +19,6 @@ Example React native mobile todo app.
     }
     ```
 4. Run the app `npx expo start`
+
+## App Screenshot
+![screenshot](./app-screenshot.png)
