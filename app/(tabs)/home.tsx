@@ -1,24 +1,17 @@
 import Card from "@/components/ui/card";
 import { Task } from "@/models/task";
 import { useContext, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Alert,
-  RefreshControl,
-} from "react-native";
-import { Colors } from "@/constants/colors";
+import { View, Text, ScrollView, Alert, RefreshControl } from "react-native";
+import { Colors, LIGHT_TEXT } from "@/constants/colors";
 import { Checkbox } from "expo-checkbox";
 import Button from "@/components/ui/button";
 import { getTasks, updateTask } from "@/util/task";
 import { AuthContext } from "@/contexts/auth-context";
 import AddTaskModal from "@/components/add-task-modal";
 import { TaskContext } from "@/contexts/task-context";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { ThemedText } from "@/components/ui/themed-text";
 import Wrapper from "@/components/ui/wrapper";
+import { cn } from "@/util/utils";
 
 export default function Home() {
   const { authState } = useContext(AuthContext);
@@ -60,21 +53,19 @@ export default function Home() {
       .catch(() => Alert.alert("Oops", "An error occured."));
   };
 
-  const lightText = useThemeColor("lightText");
-
   return (
     <Wrapper>
-      <View style={styles.header}>
-        <ThemedText style={styles.headerText}>
+      <View className="py-3">
+        <ThemedText className="text-2xl text-right">
           {"Welcome, "}
-          <ThemedText style={{ fontWeight: "bold" }}>
+          <ThemedText className="font-bold">
             {user?.name ?? user?.email}
           </ThemedText>
           !
         </ThemedText>
       </View>
-      <View style={styles.filtersContainer}>
-        <Text style={{ color: lightText }}>
+      <View className="flex-row items-center justify-between pb-5">
+        <Text className={cn(LIGHT_TEXT)}>
           Showing {filteredTasks.length} of {tasks?.length} tasks
         </Text>
         <Button
@@ -85,19 +76,20 @@ export default function Home() {
       </View>
 
       {filteredTasks.length === 0 && (
-        <Text style={{ color: lightText, textAlign: "center" }}>
-          No tasks to show.
-        </Text>
+        <Text className={cn(LIGHT_TEXT, "text-center")}>No tasks to show.</Text>
       )}
       <ScrollView
-        style={styles.scrollView}
+        className="flex-1 mb-2"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadTasks} />
         }
       >
-        <View style={styles.container}>
+        <View className="flex-1 gap-2">
           {filteredTasks?.map((task: Task) => (
-            <Card key={task.id} style={styles.task}>
+            <Card
+              key={task.id}
+              className="flex-row items-center gap-3 pr-[40px]" // TODO - make long text fit without padding adjustment
+            >
               <Checkbox
                 value={task.isCompleted}
                 color={Colors.primary}
@@ -112,33 +104,3 @@ export default function Home() {
     </Wrapper>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    paddingVertical: 10,
-  },
-  headerText: {
-    fontSize: 20,
-    textAlign: "right",
-  },
-  scrollView: {
-    flex: 1,
-    marginBottom: 8,
-  },
-  container: {
-    flex: 1,
-    gap: 5,
-  },
-  task: {
-    paddingVertical: 10,
-    paddingRight: 40, // TODO - make long text fit without padding adjustment
-    flexDirection: "row",
-    gap: 10,
-  },
-  filtersContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingBottom: 20,
-  },
-});

@@ -1,17 +1,11 @@
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { SafeAreaView, StyleProp, View, ViewStyle } from "react-native";
+import { BACKGROUND_COLOR } from "@/constants/colors";
+import { cn } from "@/util/utils";
+import { SafeAreaView, View, ViewProps } from "react-native";
 
-interface WrapperProps {
-  style?: StyleProp<ViewStyle>;
-  children?: React.ReactNode;
-}
-
-export default function Wrapper(props: WrapperProps) {
-  const backgroundColor = useThemeColor("background");
-
+export default function Wrapper(props: ViewProps) {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor }}>
-      <View style={[{ flex: 1, padding: 20 }, props.style]}>
+    <SafeAreaView className={cn("flex-1", BACKGROUND_COLOR)}>
+      <View {...props} className={cn("flex-1 p-5", props.className)}>
         {props.children}
       </View>
     </SafeAreaView>

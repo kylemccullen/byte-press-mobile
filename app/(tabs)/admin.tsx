@@ -1,19 +1,15 @@
 import Card from "@/components/ui/card";
+import Header from "@/components/ui/header";
 import SearchInput from "@/components/ui/search-input";
 import StatusBar from "@/components/ui/status-bar";
 import { ThemedText } from "@/components/ui/themed-text";
 import Wrapper from "@/components/ui/wrapper";
-import { useThemeColor } from "@/hooks/useThemeColor";
+import { LIGHT_TEXT } from "@/constants/colors";
 import { UserOverview } from "@/models/user";
 import { getUsersOverview } from "@/util/user";
+import { cn } from "@/util/utils";
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  ScrollView,
-  StyleSheet,
-  View,
-  RefreshControl,
-} from "react-native";
+import { Text, ScrollView, View, RefreshControl } from "react-native";
 
 export default function Admin() {
   const [users, setUsers] = useState<UserOverview[]>([]);
@@ -43,46 +39,37 @@ export default function Admin() {
     );
   }, [users, searchText]);
 
-  const lightText = useThemeColor("lightText");
-
   return (
     <Wrapper>
-      <ThemedText style={styles.title}>Admin Panel</ThemedText>
+      <Header title="Admin Panel" />
       <SearchInput
-        style={styles.searchInput}
+        className="mb-2"
         value={searchText}
         onChangeText={setSearchText}
       />
       <ScrollView
-        style={styles.container}
+        className="flex-1 gap-3"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadData} />
         }
       >
-        <View style={styles.container}>
+        <View className="flex-1 gap-3">
           {filteredUsers.map((user: UserOverview) => (
-            <Card key={user.email} style={{ gap: 15 }}>
-              <View style={styles.cardHeader}>
+            <Card key={user.email} className="gap-3">
+              <View className="flex-row gap-1">
                 {user.name && (
                   <>
                     <ThemedText>{user.name}</ThemedText>
-                    <Text style={{ color: lightText }}>({user.email})</Text>
+                    <Text className={cn(LIGHT_TEXT)}>({user.email})</Text>
                   </>
                 )}
                 {!user.name && <ThemedText>{user.email}</ThemedText>}
               </View>
               {user.totalTaskCount > 0 && (
                 <View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <ThemedText style={{ paddingBottom: 8 }}>
-                      Tasks Complete
-                    </ThemedText>
-                    <Text style={{ color: lightText }}>
+                  <View className="flex-row justify-between">
+                    <ThemedText className="pb-2">Tasks Complete</ThemedText>
+                    <Text className={cn(LIGHT_TEXT)}>
                       {user.completedTaskCount} / {user.totalTaskCount}
                     </Text>
                   </View>
@@ -100,22 +87,3 @@ export default function Admin() {
     </Wrapper>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  searchInput: {
-    marginBottom: 15,
-  },
-  container: {
-    flex: 1,
-    gap: 15,
-  },
-  cardHeader: {
-    flexDirection: "row",
-    gap: 3,
-  },
-});

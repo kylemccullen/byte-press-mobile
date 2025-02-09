@@ -1,11 +1,12 @@
-import { Modal, View, Pressable, StyleSheet } from "react-native";
+import { Modal, View, TouchableOpacity } from "react-native";
 import { Dispatch, SetStateAction } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Colors } from "@/constants/colors";
+import { BORDER_COLOR, CARD_BACKGROUND } from "@/constants/colors";
 import Button from "./button";
 import Wrapper from "./wrapper";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { ThemedText } from "./themed-text";
+import { cn } from "@/util/utils";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 interface PropType {
   buttonText: string;
@@ -16,45 +17,30 @@ interface PropType {
 }
 
 export default function CutomModal(props: PropType) {
-  const cardBackground = useThemeColor("cardBackground");
-  const background = useThemeColor("background");
-
+  const lightText = useThemeColor("lightText");
   return (
     <>
       <Button text={props.buttonText} onPress={() => props.setVisible(true)} />
       <Modal visible={props.visible}>
-        <Wrapper style={{ backgroundColor: cardBackground, padding: 0 }}>
-          <View style={{ ...styles.header, borderBottomColor: background }}>
+        <Wrapper className={cn("p-0", CARD_BACKGROUND)}>
+          <View
+            className={cn(
+              "flex-row items-center justify-between p-3 border-b",
+              BORDER_COLOR,
+            )}
+          >
             {props.modalTitle && (
-              <ThemedText style={styles.headerText}>
+              <ThemedText className="font-bold text-xl">
                 {props.modalTitle}
               </ThemedText>
             )}
-            <Pressable onPress={() => props.setVisible(false)}>
-              <AntDesign name="close" color={Colors.lightText} size={24} />
-            </Pressable>
+            <TouchableOpacity onPress={() => props.setVisible(false)}>
+              <AntDesign name="close" color={lightText} size={24} />
+            </TouchableOpacity>
           </View>
-          <View style={styles.content}>{props.children}</View>
+          <View className="p-3">{props.children}</View>
         </Wrapper>
       </Modal>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.appBackground,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  content: {
-    padding: 10,
-  },
-});

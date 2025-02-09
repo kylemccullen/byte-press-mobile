@@ -1,16 +1,17 @@
 import {
-  StyleSheet,
   View,
   TextInput,
   ViewStyle,
   StyleProp,
   TouchableOpacity,
-  Platform,
+  ViewProps,
 } from "react-native";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { cn } from "@/util/utils";
+import { CARD_BACKGROUND, TEXT_COLOR } from "@/constants/colors";
 
-interface SearchInputProps {
+interface SearchInputProps extends ViewProps {
   style?: StyleProp<ViewStyle>;
   placeholderText?: string;
   onChangeText?: ((text: string) => void) | undefined;
@@ -18,21 +19,20 @@ interface SearchInputProps {
 }
 
 export default function CustomSearchInput(props: SearchInputProps) {
-  const lightText = useThemeColor("lightText");
-  const cardBackground = useThemeColor("cardBackground");
-  const text = useThemeColor("text");
+  const lightText = useThemeColor("lightText"); // TODO - Use tailwind for color
 
   return (
     <View
-      style={[
-        styles.container,
-        { backgroundColor: cardBackground },
-        props.style,
-      ]}
+      className={cn(
+        "flex-row items-center gap-2 rounded-lg",
+        CARD_BACKGROUND,
+        props.className,
+      )}
+      style={{ paddingLeft: 8 }}
     >
       <FontAwesome name="search" color={lightText} />
       <TextInput
-        style={{ flex: 1, color: text, fontSize: 14 }}
+        className={cn("flex-1 py-2 m-0", TEXT_COLOR)}
         placeholder={props.placeholderText || "Search..."}
         placeholderTextColor={lightText}
         value={props.value}
@@ -40,7 +40,7 @@ export default function CustomSearchInput(props: SearchInputProps) {
       />
       {props.value && (
         <TouchableOpacity
-          style={{ padding: 3 }}
+          style={{ padding: 8 }}
           onPress={() => props.onChangeText?.("")}
         >
           <FontAwesome name="close" color={lightText} />
@@ -49,14 +49,3 @@ export default function CustomSearchInput(props: SearchInputProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    paddingVertical: Platform.OS == "ios" ? 8 : 3,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-  },
-});

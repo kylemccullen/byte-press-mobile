@@ -1,6 +1,5 @@
-import { Text, View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Image } from "expo-image";
-import { Colors } from "@/constants/colors";
 import Button from "@/components/ui/button";
 import { router } from "expo-router";
 import { useContext, useEffect, useState } from "react";
@@ -9,8 +8,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { refreshToken } from "@/util/user";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { AuthToken } from "@/models/auth-token";
-import { ThemedView } from "@/components/ui/themed-view";
 import { ThemedText } from "@/components/ui/themed-text";
+import Wrapper from "@/components/ui/wrapper";
 
 export default function Welcome() {
   const { authDispatch } = useContext(AuthContext);
@@ -42,56 +41,29 @@ export default function Welcome() {
   }, []);
 
   return (
-    <ThemedView style={styles.wrapper}>
+    <Wrapper className="items-center justify-center">
       <Image
         source={require("../assets/images/logo.png")}
-        style={styles.logo}
+        style={{ width: "60%", aspectRatio: 3 }}
         contentFit="contain"
         transition={1000}
       />
-      <ThemedText style={styles.welcome}>
+      <ThemedText className="text-2xl">
         Welcome to a simple Todo App!
       </ThemedText>
-      <ThemedText style={styles.count}>Over {count} tasks completed</ThemedText>
-      <ThemedView style={styles.container}>
+      <ThemedText className="mb-4">Over {count} tasks completed</ThemedText>
+      <View className="flex-row gap-5 w-[90%]">
         <Button
-          style={styles.button}
+          className="flex-1"
           text="Login"
           onPress={() => router.push("/(auth)/login")}
         />
         <Button
-          style={styles.button}
+          className="flex-1"
           text="Register"
           onPress={() => router.push("/(auth)/register")}
         />
-      </ThemedView>
-    </ThemedView>
+      </View>
+    </Wrapper>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: "60%",
-    aspectRatio: 3,
-  },
-  welcome: {
-    fontSize: 24,
-  },
-  count: {
-    marginBottom: 15,
-  },
-  container: {
-    flexDirection: "row",
-    gap: 20,
-    width: "90%",
-    maxWidth: 300,
-  },
-  button: {
-    flex: 1,
-  },
-});

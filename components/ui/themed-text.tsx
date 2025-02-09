@@ -1,17 +1,7 @@
-import { Colors } from "@/constants/colors";
-import { useThemeColor } from "@/hooks/useThemeColor";
+import { TEXT_COLOR } from "@/constants/colors";
+import { cn } from "@/util/utils";
 import { Text, type TextProps } from "react-native";
 
-export type ThemedTextProps = TextProps & {
-  textColorName?: keyof typeof Colors.light & keyof typeof Colors.dark;
-};
-
-export function ThemedText({
-  style,
-  textColorName,
-  ...otherProps
-}: ThemedTextProps) {
-  const color = useThemeColor(textColorName ?? "text");
-
-  return <Text style={[{ color }, style]} {...otherProps} />;
+export function ThemedText(props: TextProps) {
+  return <Text {...props} className={cn(props.className, TEXT_COLOR)} />;
 }

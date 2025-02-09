@@ -1,11 +1,6 @@
-import { useThemeColor } from "@/hooks/useThemeColor";
-import {
-  StyleSheet,
-  TextInput,
-  View,
-  Text,
-  TextInputProps,
-} from "react-native";
+import { LIGHT_TEXT } from "@/constants/colors";
+import { cn } from "@/util/utils";
+import { TextInput, View, Text, TextInputProps } from "react-native";
 
 interface Props extends TextInputProps {
   label: string;
@@ -13,31 +8,18 @@ interface Props extends TextInputProps {
 }
 
 export default function CustomTextInput(props: Props) {
-  const lightText = useThemeColor("lightText");
-  const error = useThemeColor("error");
-  const color = useThemeColor("text");
-
   return (
-    <View style={styles.container}>
-      <Text style={{ color: lightText }}>{props.label}</Text>
+    <View className="mb-2">
+      <Text className={LIGHT_TEXT}>{props.label}</Text>
       <TextInput
-        style={{ ...styles.input, color, borderColor: lightText }}
         {...props}
+        className={cn(
+          "border-b py-2",
+          LIGHT_TEXT,
+          "border-gray-500 dark:border-gray-400",
+        )}
       />
-      <Text style={{ ...styles.error, color: error }}>{props.error}</Text>
+      <Text className="pt-1 text-red-500">{props.error}</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 8,
-  },
-  input: {
-    borderBottomWidth: 1,
-    paddingVertical: 8,
-  },
-  error: {
-    paddingTop: 4,
-  },
-});

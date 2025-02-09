@@ -1,7 +1,5 @@
 import {
-  Text,
   View,
-  StyleSheet,
   KeyboardAvoidingView,
   TouchableNativeFeedback,
   Keyboard,
@@ -12,17 +10,16 @@ import { Image } from "expo-image";
 import TextInput from "@/components/ui/text-input";
 import Button from "@/components/ui/button";
 import Link from "@/components/ui/link";
-import { Colors } from "@/constants/colors";
 import { useContext, useState } from "react";
 import { login } from "@/util/user";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { router } from "expo-router";
 import { AuthToken } from "@/models/auth-token";
 import { environment } from "@/environments/environment";
-import { ThemedView } from "@/components/ui/themed-view";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { ThemedText } from "@/components/ui/themed-text";
 import Card from "@/components/ui/card";
+import { cn } from "@/util/utils";
+import { BACKGROUND_COLOR } from "@/constants/colors";
 
 interface FormErrors {
   email?: string;
@@ -74,21 +71,19 @@ export default function Login() {
       .finally(() => setLoading(false));
   };
 
-  const backgroundColor = useThemeColor("background");
-
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        style={{ ...styles.wrapper, backgroundColor }}
+        className={cn("flex-1 items-center justify-center", BACKGROUND_COLOR)}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Image
           source={require("../../assets/images/logo.png")}
-          style={styles.logo}
+          style={{ width: "60%", aspectRatio: 3 }}
           contentFit="contain"
           transition={1000}
         />
-        <Card style={styles.container}>
+        <Card className="w-[80%] mb-3">
           <TextInput
             label="Email"
             keyboardType="email-address"
@@ -105,7 +100,7 @@ export default function Login() {
           />
           <Button text="Login" onPress={submitForm} loading={loading} />
         </Card>
-        <View style={{ alignItems: "center" }}>
+        <View className="items-center">
           <ThemedText>Don't have an account?</ThemedText>
           <Link href="/(auth)/register" text="Register" />
         </View>
@@ -113,21 +108,3 @@ export default function Login() {
     </TouchableNativeFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: "60%",
-    aspectRatio: 3,
-  },
-  container: {
-    width: "80%",
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 15,
-  },
-});

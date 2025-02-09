@@ -14,12 +14,15 @@ export default function TabLayout() {
   if (!authState?.token) router.replace("/");
 
   const backgroundColor = useThemeColor("cardBackground");
+  const text = useThemeColor("lightText");
+  const iconSize = 20;
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: text,
         tabBarStyle: {
           backgroundColor,
         },
@@ -30,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: "Tasks",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 size={28} name="tasks" color={color} />
+            <FontAwesome5 size={iconSize} name="tasks" color={color} />
           ),
         }}
       />
@@ -39,7 +42,7 @@ export default function TabLayout() {
         options={{
           title: "Settings",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="gear" color={color} />
+            <FontAwesome size={iconSize} name="gear" color={color} />
           ),
         }}
       />
@@ -49,7 +52,7 @@ export default function TabLayout() {
           title: "Admin",
           href: authState?.user?.role == Role.ADMIN ? "/admin" : null,
           tabBarIcon: ({ color }) => (
-            <FontAwesome6 size={28} name="user-gear" color={color} />
+            <FontAwesome6 size={iconSize} name="user-gear" color={color} />
           ),
         }}
       />

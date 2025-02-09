@@ -1,6 +1,5 @@
 import {
   View,
-  StyleSheet,
   KeyboardAvoidingView,
   TouchableNativeFeedback,
   Keyboard,
@@ -14,9 +13,10 @@ import Link from "@/components/ui/link";
 import { useState } from "react";
 import { register } from "@/util/user";
 import { passwordMinimumLength } from "@/constants";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { ThemedText } from "@/components/ui/themed-text";
 import Card from "@/components/ui/card";
+import { cn } from "@/util/utils";
+import { BACKGROUND_COLOR } from "@/constants/colors";
 
 interface FormErrors {
   email?: string;
@@ -74,21 +74,19 @@ export default function Register() {
       .finally(() => setLoading(false));
   };
 
-  const backgroundColor = useThemeColor("background");
-
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        style={{ ...styles.wrapper, backgroundColor }}
+        className={cn("flex-1 items-center justify-center", BACKGROUND_COLOR)}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Image
           source={require("../../assets/images/logo.png")}
-          style={styles.logo}
+          style={{ width: "60%", aspectRatio: 3 }}
           contentFit="contain"
           transition={1000}
         />
-        <Card style={styles.container}>
+        <Card className="w-[80%] mb-3">
           <TextInput
             label="Name"
             keyboardType="default"
@@ -118,7 +116,7 @@ export default function Register() {
           />
           <Button text="Sign Up" onPress={submitForm} loading={loading} />
         </Card>
-        <View style={{ alignItems: "center" }}>
+        <View className="items-center">
           <ThemedText>Already have an account?</ThemedText>
           <Link href="/(auth)/login" text="Login" />
         </View>
@@ -126,20 +124,3 @@ export default function Register() {
     </TouchableNativeFeedback>
   );
 }
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: "60%",
-    aspectRatio: 3,
-  },
-  container: {
-    width: "80%",
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 15,
-  },
-});

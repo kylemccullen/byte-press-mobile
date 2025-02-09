@@ -3,6 +3,8 @@ import { TaskProvider } from "@/contexts/task-context";
 import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
 
+import "./global.css";
+
 export default function RootLayout() {
   return (
     <>

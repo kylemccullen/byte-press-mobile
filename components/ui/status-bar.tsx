@@ -1,35 +1,23 @@
-import { StyleSheet, View } from "react-native";
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { Colors } from "@/constants/colors";
+import { View } from "react-native";
+import { BACKGROUND_COLOR, Colors } from "@/constants/colors";
+import { cn } from "@/util/utils";
 
 interface StatusBarProps {
   percentComplete: number;
 }
 
 export default function CustomStatusBar(props: StatusBarProps) {
-  const background = useThemeColor("background");
+  const statusBarClasses = "h-[16px] rounded-lg mb-2";
 
   return (
-    <View style={{ ...styles.bar, backgroundColor: background }}>
+    <View className={cn(BACKGROUND_COLOR, statusBarClasses)}>
       <View
+        className={statusBarClasses}
         style={{
-          ...styles.fill,
+          backgroundColor: Colors.primary,
           width: `${props.percentComplete}%`,
         }}
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  bar: {
-    height: 16,
-    borderRadius: 8,
-    marginBottom: 6,
-  },
-  fill: {
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: Colors.primary,
-  },
-});
