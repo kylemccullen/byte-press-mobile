@@ -60,7 +60,11 @@ export default function Register() {
 
     setLoading(true);
 
-    register(email, password)
+    register({
+      email,
+      password,
+      name,
+    })
       .then(() => Alert.alert("Yay!", "Succesfully Registered!"))
       .catch((error) => {
         var errors = error.response?.data?.errors;

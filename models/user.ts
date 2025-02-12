@@ -10,6 +10,12 @@ export interface User {
   role: Role;
 }
 
+export interface RegisterUser {
+  name?: string;
+  email: string;
+  password: string;
+}
+
 export interface UpdateUser {
   name: string;
 }

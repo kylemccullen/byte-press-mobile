@@ -1,13 +1,10 @@
 import axios from "axios";
 import { environment } from "@/environments/environment";
-import { UpdateUser, User, UserOverview } from "@/models/user";
+import { RegisterUser, UpdateUser, User, UserOverview } from "@/models/user";
 import { AuthToken } from "@/models/auth-token";
 
-export const register = (email: string, password: string): Promise<void> => {
-  return axios.post(`${environment.apiUrl}/register`, {
-    email,
-    password,
-  });
+export const register = (registerUser: RegisterUser): Promise<void> => {
+  return axios.post(`${environment.apiUrl}/register`, registerUser);
 };
 
 export const login = async (
