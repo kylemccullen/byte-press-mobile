@@ -3,7 +3,7 @@ import Modal from "./ui/modal";
 import TextInput from "./ui/text-input";
 import Button from "./ui/button";
 import { useContext, useState } from "react";
-import { addTask } from "@/util/task";
+import { addTask } from "@/services/task";
 import { Task } from "@/models/task";
 import { TaskContext } from "@/contexts/task-context";
 

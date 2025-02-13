@@ -11,15 +11,15 @@ import TextInput from "@/components/ui/text-input";
 import Button from "@/components/ui/button";
 import Link from "@/components/ui/link";
 import { useContext, useState } from "react";
-import { login } from "@/util/user";
+import { login } from "@/services/user";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { router } from "expo-router";
 import { AuthToken } from "@/models/auth-token";
 import { environment } from "@/environments/environment";
 import { ThemedText } from "@/components/ui/themed-text";
 import Card from "@/components/ui/card";
-import { cn } from "@/util/utils";
-import { BACKGROUND_COLOR } from "@/constants/colors";
+import { cn } from "@/lib/utils";
+import { BACKGROUND_COLOR } from "@/lib/constants";
 
 interface FormErrors {
   email?: string;

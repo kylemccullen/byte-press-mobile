@@ -1,5 +1,5 @@
-import { BACKGROUND_COLOR } from "@/constants/colors";
-import { cn } from "@/util/utils";
+import { BACKGROUND_COLOR } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { SafeAreaView, View, ViewProps } from "react-native";
 
 export default function Wrapper(props: ViewProps) {

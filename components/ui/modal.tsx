@@ -7,11 +7,11 @@ import {
 } from "react-native";
 import { Dispatch, SetStateAction } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { BORDER_COLOR, CARD_BACKGROUND } from "@/constants/colors";
+import { BORDER_COLOR, CARD_BACKGROUND } from "@/lib/constants";
 import Button from "./button";
 import Wrapper from "./wrapper";
 import { ThemedText } from "./themed-text";
-import { cn } from "@/util/utils";
+import { cn } from "@/lib/utils";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 interface PropType {

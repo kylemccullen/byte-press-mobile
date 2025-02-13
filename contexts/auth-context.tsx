@@ -1,6 +1,6 @@
 import { AuthToken } from "@/models/auth-token";
 import { User } from "@/models/user";
-import { getUser } from "@/util/user";
+import { getUser } from "@/services/user";
 import axios from "axios";
 import { createContext, Dispatch, useEffect, useReducer } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";

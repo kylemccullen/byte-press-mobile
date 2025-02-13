@@ -4,7 +4,7 @@ import TextInput from "./ui/text-input";
 import Button from "./ui/button";
 import { useContext, useState } from "react";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
-import { updateUser } from "@/util/user";
+import { updateUser } from "@/services/user";
 
 export default function UpdateNameModal() {
   const { authState, authDispatch } = useContext(AuthContext);

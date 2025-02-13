@@ -4,10 +4,10 @@ import SearchInput from "@/components/ui/search-input";
 import StatusBar from "@/components/ui/status-bar";
 import { ThemedText } from "@/components/ui/themed-text";
 import Wrapper from "@/components/ui/wrapper";
-import { LIGHT_TEXT } from "@/constants/colors";
+import { LIGHT_TEXT } from "@/lib/constants";
 import { UserOverview } from "@/models/user";
-import { getUsersOverview } from "@/util/user";
-import { cn } from "@/util/utils";
+import { getUsersOverview } from "@/services/user";
+import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { Text, ScrollView, View, RefreshControl } from "react-native";
 

@@ -2,16 +2,16 @@ import Card from "@/components/ui/card";
 import { Task } from "@/models/task";
 import { useContext, useEffect, useState } from "react";
 import { View, Text, ScrollView, Alert, RefreshControl } from "react-native";
-import { Colors, LIGHT_TEXT } from "@/constants/colors";
+import { Colors, LIGHT_TEXT } from "@/lib/constants";
 import { Checkbox } from "expo-checkbox";
 import Button from "@/components/ui/button";
-import { getTasks, updateTask } from "@/util/task";
+import { getTasks, updateTask } from "@/services/task";
 import { AuthContext } from "@/contexts/auth-context";
 import AddTaskModal from "@/components/add-task-modal";
 import { TaskContext } from "@/contexts/task-context";
 import { ThemedText } from "@/components/ui/themed-text";
 import Wrapper from "@/components/ui/wrapper";
-import { cn } from "@/util/utils";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const { authState } = useContext(AuthContext);

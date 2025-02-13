@@ -1,5 +1,5 @@
-import { LIGHT_TEXT } from "@/constants/colors";
-import { cn } from "@/util/utils";
+import { LIGHT_TEXT } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { TextInput, View, Text, TextInputProps } from "react-native";
 
 interface Props extends TextInputProps {

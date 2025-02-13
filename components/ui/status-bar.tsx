@@ -1,6 +1,6 @@
 import { View } from "react-native";
-import { BACKGROUND_COLOR, Colors } from "@/constants/colors";
-import { cn } from "@/util/utils";
+import { BACKGROUND_COLOR, Colors } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 interface StatusBarProps {
   percentComplete: number;

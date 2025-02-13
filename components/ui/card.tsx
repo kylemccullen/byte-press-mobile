@@ -1,5 +1,5 @@
-import { CARD_BACKGROUND } from "@/constants/colors";
-import { cn } from "@/util/utils";
+import { CARD_BACKGROUND } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { View, ViewProps } from "react-native";
 
 export default function Card(props: ViewProps) {

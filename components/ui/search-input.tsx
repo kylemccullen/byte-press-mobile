@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { cn } from "@/util/utils";
-import { CARD_BACKGROUND, TEXT_COLOR } from "@/constants/colors";
+import { cn } from "@/lib/utils";
+import { CARD_BACKGROUND, TEXT_COLOR } from "@/lib/constants";
 
 interface SearchInputProps extends ViewProps {
   style?: StyleProp<ViewStyle>;

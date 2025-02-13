@@ -1,5 +1,5 @@
-import { TEXT_COLOR } from "@/constants/colors";
-import { cn } from "@/util/utils";
+import { TEXT_COLOR } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { Text, type TextProps } from "react-native";
 
 export function ThemedText(props: TextProps) {

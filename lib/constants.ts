@@ -15,3 +15,5 @@ export const BORDER_COLOR = "border-gray-300 dark:border-gray-800";
 export const LIGHT_TEXT = "text-gray-500 dark:text-gray-400";
 export const CARD_BACKGROUND = "bg-white dark:bg-gray-700";
 export const BACKGROUND_COLOR = "bg-gray-200 dark:bg-gray-800";
+
+export const passwordMinimumLength = 6;

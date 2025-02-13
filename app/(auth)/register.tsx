@@ -11,12 +11,12 @@ import TextInput from "@/components/ui/text-input";
 import Button from "@/components/ui/button";
 import Link from "@/components/ui/link";
 import { useState } from "react";
-import { register } from "@/util/user";
-import { passwordMinimumLength } from "@/constants";
+import { register } from "@/services/user";
+import { passwordMinimumLength } from "@/lib/constants";
 import { ThemedText } from "@/components/ui/themed-text";
 import Card from "@/components/ui/card";
-import { cn } from "@/util/utils";
-import { BACKGROUND_COLOR } from "@/constants/colors";
+import { cn } from "@/lib/utils";
+import { BACKGROUND_COLOR } from "@/lib/constants";
 
 interface FormErrors {
   email?: string;

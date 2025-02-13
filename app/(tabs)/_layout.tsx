@@ -4,7 +4,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router, Tabs } from "expo-router";
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/auth-context";
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/lib/constants";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Role } from "@/models/user";
 
