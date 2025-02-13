@@ -53,6 +53,13 @@ export default function Register() {
     return Object.keys(formErrors).length === 0;
   };
 
+  var resetForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
   var submitForm = () => {
     if (!validateForm()) {
       return;
@@ -65,7 +72,10 @@ export default function Register() {
       password,
       name,
     })
-      .then(() => Alert.alert("Yay!", "Succesfully Registered!"))
+      .then(() => {
+        resetForm();
+        Alert.alert("Success!", "Succesfully Registered! You may now login.");
+      })
       .catch((error) => {
         var errors = error.response?.data?.errors;
         Alert.alert(
