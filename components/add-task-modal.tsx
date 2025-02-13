@@ -53,6 +53,7 @@ export default function AddTaskModal() {
       <View>
         <TextInput
           label="Name"
+          autoFocus={true}
           multiline
           value={name}
           onChangeText={setName}

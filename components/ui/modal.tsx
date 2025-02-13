@@ -1,4 +1,10 @@
-import { Modal, View, TouchableOpacity } from "react-native";
+import {
+  Modal,
+  View,
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Dispatch, SetStateAction } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { BORDER_COLOR, CARD_BACKGROUND } from "@/constants/colors";
@@ -38,7 +44,9 @@ export default function CutomModal(props: PropType) {
               <AntDesign name="close" color={lightText} size={24} />
             </TouchableOpacity>
           </View>
-          <View className="p-3">{props.children}</View>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View className="flex-1 p-3">{props.children}</View>
+          </TouchableWithoutFeedback>
         </Wrapper>
       </Modal>
     </>
