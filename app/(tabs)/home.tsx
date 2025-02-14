@@ -2,7 +2,7 @@ import Card from "@/components/ui/card";
 import { Task } from "@/models/task";
 import { useContext, useEffect, useState } from "react";
 import { View, Text, ScrollView, Alert, RefreshControl } from "react-native";
-import { Colors, LIGHT_TEXT } from "@/lib/constants";
+import { Colors } from "@/lib/constants";
 import { Checkbox } from "expo-checkbox";
 import Button from "@/components/ui/button";
 import { getTasks, updateTask } from "@/services/task";
@@ -11,7 +11,6 @@ import AddTaskModal from "@/components/add-task-modal";
 import { TaskContext } from "@/contexts/task-context";
 import { ThemedText } from "@/components/ui/themed-text";
 import Wrapper from "@/components/ui/wrapper";
-import { cn } from "@/lib/utils";
 
 export default function Home() {
   const { authState } = useContext(AuthContext);
@@ -65,9 +64,9 @@ export default function Home() {
         </ThemedText>
       </View>
       <View className="flex-row items-center justify-between pb-5">
-        <Text className={cn(LIGHT_TEXT)}>
+        <ThemedText light>
           Showing {filteredTasks.length} of {tasks?.length} tasks
-        </Text>
+        </ThemedText>
         <Button
           icon={showCompleted ? "eye-slash" : "eye"}
           text={showCompleted ? "Hide Completed" : "Show Completed"}
@@ -76,7 +75,9 @@ export default function Home() {
       </View>
 
       {filteredTasks.length === 0 && (
-        <Text className={cn(LIGHT_TEXT, "text-center")}>No tasks to show.</Text>
+        <ThemedText light className="text-center">
+          No tasks to show.
+        </ThemedText>
       )}
       <ScrollView
         className="flex-1 mb-2"

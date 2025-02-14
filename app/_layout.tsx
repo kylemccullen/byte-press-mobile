@@ -1,7 +1,7 @@
 import { AuthProvider } from "@/contexts/auth-context";
 import { TaskProvider } from "@/contexts/task-context";
 import { Stack } from "expo-router";
-import { StatusBar } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 import "./global.css";
 
@@ -13,7 +13,7 @@ export default function RootLayout() {
           <Stack screenOptions={{ headerShown: false }} />
         </TaskProvider>
       </AuthProvider>
-      <StatusBar />
+      <StatusBar style="auto" />
     </>
   );
 }

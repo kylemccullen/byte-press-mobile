@@ -15,8 +15,7 @@ import { register } from "@/services/user";
 import { passwordMinimumLength } from "@/lib/constants";
 import { ThemedText } from "@/components/ui/themed-text";
 import Card from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { BACKGROUND_COLOR } from "@/lib/constants";
+import { ThemedView } from "@/components/ui/themed-view";
 
 interface FormErrors {
   email?: string;
@@ -90,51 +89,53 @@ export default function Register() {
 
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        className={cn("flex-1 items-center justify-center", BACKGROUND_COLOR)}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <Image
-          source={require("../../assets/images/logo.png")}
-          style={{ width: "60%", aspectRatio: 3 }}
-          contentFit="contain"
-          transition={1000}
-        />
-        <Card className="w-[80%] mb-3">
-          <TextInput
-            label="Name"
-            keyboardType="default"
-            value={name}
-            onChangeText={setName}
+      <ThemedView className="flex-1">
+        <KeyboardAvoidingView
+          className="flex-1 items-center justify-center"
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <Image
+            source={require("../../assets/images/logo.png")}
+            style={{ width: "60%", aspectRatio: 3 }}
+            contentFit="contain"
+            transition={1000}
           />
-          <TextInput
-            label="Email"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-            error={errors.email}
-          />
-          <TextInput
-            label="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            error={errors.password}
-          />
-          <TextInput
-            label="Confirm Password"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            error={errors.confirmPassword}
-          />
-          <Button text="Sign Up" onPress={submitForm} loading={loading} />
-        </Card>
-        <View className="items-center">
-          <ThemedText>Already have an account?</ThemedText>
-          <Link href="/(auth)/login" text="Login" />
-        </View>
-      </KeyboardAvoidingView>
+          <Card className="w-[80%] mb-3">
+            <TextInput
+              label="Name"
+              keyboardType="default"
+              value={name}
+              onChangeText={setName}
+            />
+            <TextInput
+              label="Email"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+              error={errors.email}
+            />
+            <TextInput
+              label="Password"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+              error={errors.password}
+            />
+            <TextInput
+              label="Confirm Password"
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              error={errors.confirmPassword}
+            />
+            <Button text="Sign Up" onPress={submitForm} loading={loading} />
+          </Card>
+          <View className="items-center">
+            <ThemedText>Already have an account?</ThemedText>
+            <Link href="/(auth)/login" text="Login" />
+          </View>
+        </KeyboardAvoidingView>
+      </ThemedView>
     </TouchableNativeFeedback>
   );
 }

@@ -9,7 +9,6 @@ import {
 import { useThemeColor } from "@/hooks/useThemeColor";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { cn } from "@/lib/utils";
-import { CARD_BACKGROUND, TEXT_COLOR } from "@/lib/constants";
 
 interface SearchInputProps extends ViewProps {
   style?: StyleProp<ViewStyle>;
@@ -24,15 +23,14 @@ export default function CustomSearchInput(props: SearchInputProps) {
   return (
     <View
       className={cn(
-        "flex-row items-center gap-2 rounded-lg",
-        CARD_BACKGROUND,
+        "flex-row items-center gap-2 rounded-lg bg-white dark:bg-gray-700",
         props.className,
       )}
       style={{ paddingLeft: 8 }}
     >
       <FontAwesome name="search" color={lightText} />
       <TextInput
-        className={cn("flex-1 py-2 m-0", TEXT_COLOR)}
+        className="flex-1 py-2 m-0 text-black dark:text-white"
         placeholder={props.placeholderText || "Search..."}
         placeholderTextColor={lightText}
         value={props.value}

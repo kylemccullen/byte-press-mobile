@@ -3,7 +3,6 @@ import Header from "@/components/ui/header";
 import { ThemedText } from "@/components/ui/themed-text";
 import Wrapper from "@/components/ui/wrapper";
 import UpdateNameModal from "@/components/update-name-modal";
-import { LIGHT_TEXT } from "@/lib/constants";
 import { AuthActionType, AuthContext } from "@/contexts/auth-context";
 import { cn } from "@/lib/utils";
 import { router } from "expo-router";
@@ -25,9 +24,9 @@ export default function Settings() {
       <View className="flex-row items-center justify-between mb-3">
         <View className="flex-row items-center gap-2">
           <ThemedText className="text-xl">Name:</ThemedText>
-          <Text className={cn("text-xl font-bold", !user?.name && LIGHT_TEXT)}>
+          <ThemedText light={!user?.name} className="text-xl font-bold">
             {user?.name ?? "Not Set"}
-          </Text>
+          </ThemedText>
         </View>
         <UpdateNameModal />
       </View>

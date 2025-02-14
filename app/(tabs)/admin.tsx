@@ -4,10 +4,8 @@ import SearchInput from "@/components/ui/search-input";
 import StatusBar from "@/components/ui/status-bar";
 import { ThemedText } from "@/components/ui/themed-text";
 import Wrapper from "@/components/ui/wrapper";
-import { LIGHT_TEXT } from "@/lib/constants";
 import { UserOverview } from "@/models/user";
 import { getUsersOverview } from "@/services/user";
-import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { Text, ScrollView, View, RefreshControl } from "react-native";
 
@@ -60,7 +58,7 @@ export default function Admin() {
                 {user.name && (
                   <>
                     <ThemedText>{user.name}</ThemedText>
-                    <Text className={cn(LIGHT_TEXT)}>({user.email})</Text>
+                    <ThemedText light>({user.email})</ThemedText>
                   </>
                 )}
                 {!user.name && <ThemedText>{user.email}</ThemedText>}
@@ -69,9 +67,9 @@ export default function Admin() {
                 <View>
                   <View className="flex-row justify-between">
                     <ThemedText className="pb-2">Tasks Complete</ThemedText>
-                    <Text className={cn(LIGHT_TEXT)}>
+                    <ThemedText light>
                       {user.completedTaskCount} / {user.totalTaskCount}
-                    </Text>
+                    </ThemedText>
                   </View>
                   <StatusBar
                     percentComplete={

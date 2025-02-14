@@ -18,8 +18,7 @@ import { AuthToken } from "@/models/auth-token";
 import { environment } from "@/environments/environment";
 import { ThemedText } from "@/components/ui/themed-text";
 import Card from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { BACKGROUND_COLOR } from "@/lib/constants";
+import { ThemedView } from "@/components/ui/themed-view";
 
 interface FormErrors {
   email?: string;
@@ -73,38 +72,40 @@ export default function Login() {
 
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        className={cn("flex-1 items-center justify-center", BACKGROUND_COLOR)}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <Image
-          source={require("../../assets/images/logo.png")}
-          style={{ width: "60%", aspectRatio: 3 }}
-          contentFit="contain"
-          transition={1000}
-        />
-        <Card className="w-[80%] mb-3">
-          <TextInput
-            label="Email"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-            error={errors.email}
+      <ThemedView className="flex-1">
+        <KeyboardAvoidingView
+          className="flex-1 items-center justify-center"
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <Image
+            source={require("../../assets/images/logo.png")}
+            style={{ width: "60%", aspectRatio: 3 }}
+            contentFit="contain"
+            transition={1000}
           />
-          <TextInput
-            label="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            error={errors.password}
-          />
-          <Button text="Login" onPress={submitForm} loading={loading} />
-        </Card>
-        <View className="items-center">
-          <ThemedText>Don't have an account?</ThemedText>
-          <Link href="/(auth)/register" text="Register" />
-        </View>
-      </KeyboardAvoidingView>
+          <Card className="w-[80%] mb-3">
+            <TextInput
+              label="Email"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+              error={errors.email}
+            />
+            <TextInput
+              label="Password"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+              error={errors.password}
+            />
+            <Button text="Login" onPress={submitForm} loading={loading} />
+          </Card>
+          <View className="items-center">
+            <ThemedText>Don't have an account?</ThemedText>
+            <Link href="/(auth)/register" text="Register" />
+          </View>
+        </KeyboardAvoidingView>
+      </ThemedView>
     </TouchableNativeFeedback>
   );
 }
