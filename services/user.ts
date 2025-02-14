@@ -52,3 +52,7 @@ export const getUsersOverview = async (): Promise<UserOverview[]> => {
 
   return response.data as UserOverview[];
 };
+
+export const forgotPassword = async (email: string): Promise<void> => {
+  await axios.post(`${environment.apiUrl}/forgotPassword`, { email });
+};

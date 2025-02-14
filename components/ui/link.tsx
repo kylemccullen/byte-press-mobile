@@ -1,14 +1,13 @@
 import { Text, TouchableOpacity } from "react-native";
-import { Href, Link } from "expo-router";
+import { Link, LinkProps } from "expo-router";
 
-interface Props {
-  href: Href;
+interface Props extends LinkProps {
   text: string;
 }
 
 export default function CustomLink(props: Props) {
   return (
-    <Link href={props.href} asChild replace>
+    <Link asChild replace {...props}>
       <TouchableOpacity>
         <Text className="underline p-1 text-blue-500">{props.text}</Text>
       </TouchableOpacity>

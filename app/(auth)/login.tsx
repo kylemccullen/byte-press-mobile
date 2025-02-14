@@ -1,10 +1,12 @@
 import {
+  Text,
   View,
   KeyboardAvoidingView,
   TouchableNativeFeedback,
   Keyboard,
   Platform,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import { Image } from "expo-image";
 import TextInput from "@/components/ui/text-input";
@@ -102,7 +104,14 @@ export default function Login() {
           </Card>
           <View className="items-center">
             <ThemedText>Don't have an account?</ThemedText>
-            <Link href="/(auth)/register" text="Register" />
+            <Link push={true} href="/(auth)/register" text="Register" />
+            <TouchableOpacity
+              onPress={() => router.push("/(auth)/forgot-password")}
+            >
+              <Text className="underline p-1 text-blue-500">
+                Forgot Password
+              </Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </ThemedView>
